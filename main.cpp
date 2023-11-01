@@ -75,7 +75,7 @@ using namespace Eigen;
 //////////////////////////////////////////////////////
 
 
-// input processor : change typeSpec to nodes/r for 2 triangle case
+// input processor: reads in the input text files and stores in Nodes and FaceNodes
 void inputProcessorFunc(const std::string& inputFileName, vector<Vector3d>* Nodes, vector<vector<int>>* facenodes) {
     ifstream inputFile(inputFileName);
     string line, typeSpec;
@@ -134,7 +134,7 @@ void inputProcessorFunc(const std::string& inputFileName, vector<Vector3d>* Node
     inputFile.close();
 }
 
-
+// Calculate all other required geometrical parameters
 void geometry_for_shell(vector<Vector3d>* Nodes, vector<vector<int> >* Face_Nodes, \
     vector<Vector3d>* Edges, vector<vector<int> >* Face_Edges, vector<vector<int> >* sign_face_edges, \
     vector<vector<int> >* EdgeIsBet, vector<vector<int> >* HingeIsBet, \
@@ -424,7 +424,7 @@ void Calculate_fi_ti_ci_shape_operator(Vector3d pi, Vector3d pj, Vector3d pk, do
     lambdas->push_back(lambda);
 
 }
-
+// Calculate initial values of geometry
 void initial_geometric_params(vector<Vector3d>* Nodes, vector<Vector3d>* Edges, vector<vector<int> >* face_nodes, \
     vector<vector<int> >* face_edges, vector<vector<int> >* sign_face_edges, vector<Vector3d>* edge_n_avg, \
     vector<double>* q, vector<double>* undef_el, vector<Vector3d>* tau_0, vector<double>* xi_s, \
@@ -564,8 +564,6 @@ Matrix<double, 3, 3> ddel_fi_by_del_pk1_pk2(Vector3d vi, Vector3d vj, Vector3d v
     ddel_fi_pk1_pk2 = (1 / (4 * pow(A, 2))) * (tau_i0.dot(tk1) * ((unit_norm * (tk2.transpose())) + (tk2 * (unit_norm.transpose()))));
     return ddel_fi_pk1_pk2;
 }
-
-
 
 void grad_hess_Eb_shell_midedgeNormal(double Kbend, Vector3d pi, Vector3d pj, Vector3d pk, double xi_i, double xi_j, double xi_k, \
     int s_i, int s_j, int s_k, Vector3d tau_i0, Vector3d tau_j0, Vector3d tau_k0, \
@@ -818,7 +816,6 @@ void grad_hess_Eb_shell_midedgeNormal(double Kbend, Vector3d pi, Vector3d pj, Ve
 }
 
 // -------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------
 void get_bendingForce(vector<double>* q_pointer, int n_nodes, int n_faces, \
     vector <vector<int> >* face_nodes, vector<vector<int> >* face_edges, double Kbend, \
     vector <Vector3d>* tau_0, vector<vector<int> >* sign_faces, \
@@ -1062,7 +1059,7 @@ void display() {
         cout << "current time: " << ctime << endl;
 
 
-        /////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
         glBegin(GL_LINES);
         for (int c = 0; c < n_edges; ++c) {
             int n1 = (*EdgeIsBet)[c][0] ; // node 1 number
@@ -1083,9 +1080,9 @@ void display() {
         glutSwapBuffers();
         glFlush();
 
-    }
+    }// end time loop
 
-}
+}// end display function
 
 
 
