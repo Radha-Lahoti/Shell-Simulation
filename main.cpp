@@ -1287,7 +1287,7 @@ int main(int argc, char** argv)
     // cout<< "J_bending is:"<<endl;
     // cout<< J_bending<<endl;
 
-// call the display function which has the iteration loops
+// call the display function which has the iterations loop
 
     glutDisplayFunc(display);
 
