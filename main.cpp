@@ -9,7 +9,7 @@
 using namespace std;
 using namespace Eigen;
 
-// declare all variables (since the display function needs it that way)
+// declare all variables (since the display function needs these)
     vector<Vector3d>* Nodes;
     vector<vector<int> >* Face_Nodes;
     int n_nodes, n_faces, n_edges, n_dof, n_freeDOF;
@@ -106,7 +106,7 @@ void inputProcessorFunc(const std::string& inputFileName, vector<Vector3d>* Node
             if (dataLine.empty()) {
                 continue;
             }
-            
+            // change "nodes\r" below to "nodes" if needed
             if (typeSpec == "nodes\r") {
                 if (dataLine.size() != 3) {
                     cerr << "Warning. Invalid input for nodes." << endl;
@@ -116,7 +116,9 @@ void inputProcessorFunc(const std::string& inputFileName, vector<Vector3d>* Node
                     double z = stod(dataLine[2]);
                     Nodes->push_back(Vector3d(x, y, z));
                 }
-            } else if (typeSpec == "facenodes\r") {
+            } 
+            // change "facenodes\r" below to "facenodes" if needed
+            else if (typeSpec == "facenodes\r") {
                 if (dataLine.size() != 3) {
                     cerr << "Warning. Invalid input for edges." << endl;
                 } else {
@@ -1110,6 +1112,7 @@ int main(int argc, char** argv)
     string inputFileName = "two_triangle_input.txt"; // two triangles
     // string inputFileName = "input_shell_plate_cantilever_for_c++.txt"; // two triangles
     inputProcessorFunc(inputFileName, Nodes, Face_Nodes);
+    // if this doesn't read correctly, change "nodes\r" to "nodes" and "facenodes\r" to "facenodes" in the inputProcessorFunc
 
     // cout << "Node positions:" << endl;
     // for (int i = 0; i < Nodes->size(); i++) {
