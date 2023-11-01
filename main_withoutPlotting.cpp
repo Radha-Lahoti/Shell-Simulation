@@ -3,8 +3,6 @@
 #include <sstream>
 #include <Eigen/Dense>
 #include <vector>
-#include <GL/glut.h>
-#include <cmath>
 
 using namespace std;
 using namespace Eigen;
