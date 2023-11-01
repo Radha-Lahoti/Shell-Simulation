@@ -1122,7 +1122,7 @@ int main(int argc, char** argv)
     //     }
     //     cout << ";" << endl;
     // }
-// return 0;
+
     // some required numbers:
     n_nodes = Nodes->size();
     n_faces = Face_Nodes->size();
